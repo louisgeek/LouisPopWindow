@@ -7,8 +7,15 @@
 
     <Button
         android:id="@+id/id_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="show popWindow"
+        />
+    <Button
+        android:id="@+id/id_btn_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_btn"
+        android:text="show popWindow 2"
         />
 </RelativeLayout>
