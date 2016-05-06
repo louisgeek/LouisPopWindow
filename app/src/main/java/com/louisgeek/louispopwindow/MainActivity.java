@@ -167,8 +167,8 @@ public class MainActivity extends AppCompatActivity {
             popupWindow2.showAtLocation(view, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 
             configWindowAlpha(0.5f);
-
-            //popupWindow2.update();
+           // popupWindow2.setAnimationStyle(R.anim.anim_pop_2);//补间动画
+           // popupWindow2.update();
             popupWindow2.setOnDismissListener(new PopupWindow.OnDismissListener()
 
             {
