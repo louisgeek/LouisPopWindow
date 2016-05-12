@@ -1,6 +1,5 @@
 package com.louisgeek.louispopwindow;
 
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initPopWindow2(View v) {
-        View view=LayoutInflater.from(this).inflate(R.layout.popwindow_content_2,null,false);
+        View view=LayoutInflater.from(this).inflate(R.layout.popwindow_content_2, null, false);
         final TextView id_tv_1=ButterKnife.findById(view, R.id.id_tv_1);
         id_tv_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,14 +116,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        view.setFocusable(true);
+        view.setFocusableInTouchMode(true);
         popupWindow2=new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         /**setFocusable(true)：设置焦点，PopupWindow弹出后，所有的触屏和物理按键都由PopupWindows 处理。
          * 其他任何事件的响应都必须发生在PopupWindow消失之后，（home 等系统层面的事件除外）。
          * 比如这样一个PopupWindow出现的时候，按back键首先是让PopupWindow消失，第二次按才是退出 activity，
          * 准确的说是想退出activity你得首先让PopupWindow消失，因为不并是任何情况下按back PopupWindow都会消失，
          * 必须在PopupWindow设置了背景的情况下 。*/
-        popupWindow2.setBackgroundDrawable(new BitmapDrawable());//必须设置  ps:xml bg和这个不冲突
-        popupWindow2.setFocusable(true);//设置后  达到返回按钮先消失popupWindow
+       // popupWindow2.setBackgroundDrawable(new BitmapDrawable());//必须设置  ps:xml bg和这个不冲突
+       // popupWindow2.setFocusable(true);//设置后  达到返回按钮先消失popupWindow
+       // popupWindow2.setOutsideTouchable(false);
+       // 不是PopupWindow
+   /*     popupWindow2.getContentView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.d(TAG, "onTouch: " + event.getAction());
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    popupWindow2.dismiss();
+                    Log.d(TAG, "onTouch: dismiss" );
+                    return true;
+
+                }
+               return false;
+
+            }
+        });*/
+        //
+        //jian
+       /*!!!!!    @Override
+        public void onBackPressed() {
+
+            if (popupWindow2.isShowing()){
+                popupWindow2.dismiss();
+            }else{
+                super.onBackPressed();
+            }
+        }
+*/
+
 
         //popupWindow.setOutsideTouchable(false);//false点击popupwindow外部，popupwindow不会dismiss
 
@@ -182,6 +212,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+
+    @Override
+    public void onBackPressed() {
+
+        if (popupWindow2.isShowing()){
+            popupWindow2.dismiss();
+        }else{
+            super.onBackPressed();
+        }
+    }
 
     private void configWindowAlpha(float alpha) {
         WindowManager.LayoutParams lp=getWindow().getAttributes();
