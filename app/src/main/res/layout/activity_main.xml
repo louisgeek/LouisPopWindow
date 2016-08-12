@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+                android:id="@+id/id_rl_bg"
     android:layout_height="match_parent"
     tools:context="com.louisgeek.louispopwindow.MainActivity">
 
@@ -9,14 +10,14 @@
         android:id="@+id/id_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="show popWindow"
+        android:text="show popWindow 带背景改变动画"
         />
     <Button
         android:id="@+id/id_btn_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/id_btn"
-        android:text="show popWindow 2"
+        android:text="show popWindow 2 靠：onBackPressed"
         />
 
     <Button
@@ -24,13 +25,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/id_btn_2"
-        android:text="show popWindow 3"
+        android:text="show popWindow 3 靠：setOnKeyListener"
         />
     <Button
         android:id="@+id/id_btn_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/id_btn_3"
-        android:text="show popWindow 4"
+        android:text="show popWindow 4 靠：setOnKeyListener 【荐】"
         />
 </RelativeLayout>

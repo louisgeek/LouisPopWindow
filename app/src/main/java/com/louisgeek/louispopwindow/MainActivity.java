@@ -1,5 +1,6 @@
 package com.louisgeek.louispopwindow;
 
+import android.animation.ObjectAnimator;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
     List<String> stringList = new ArrayList<>();
     PopupWindow popupWindow2;
     private static final String TAG = "MainActivity";
-
+    RelativeLayout id_rl_bg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+         id_rl_bg=ButterKnife.findById(this,R.id.id_rl_bg);
 
         initData();
 
@@ -85,10 +89,33 @@ public class MainActivity extends AppCompatActivity {
                 // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
             }
         });*/
-
+       int screenW=getResources().getDisplayMetrics().widthPixels;
+        popupWindow.setWidth(screenW);
         popupWindow.showAsDropDown(v);
         popupWindow.setAnimationStyle(R.anim.anim_pop);//补间动画
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                changeBg(true);
+            }
+        });
 
+        //
+        changeBg(false);
+
+
+    }
+
+    private void changeBg(boolean isBack) {
+        int startColor =isBack?0xff818080:0xffffffff;//0xffff0000
+        int endColor = isBack?0xffffffff:0xff818080;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+             ObjectAnimator anim= ObjectAnimator.ofArgb(id_rl_bg,"backgroundColor",startColor,endColor);
+             anim.setDuration(300);
+             anim.start();
+        }else{
+            id_rl_bg.setBackgroundColor(endColor);
+        }
     }
 
     @OnClick({R.id.id_btn, R.id.id_btn_2, R.id.id_btn_3, R.id.id_btn_4})
@@ -212,7 +239,8 @@ public class MainActivity extends AppCompatActivity {
  */
         popupWindow2.showAtLocation(v, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
 
-        configWindowAlpha(0.5f);
+       configWindowAlpha(0.5f);
+
         // popupWindow2.setAnimationStyle(R.anim.anim_pop_2);//补间动画
         // popupWindow2.update();
         popupWindow2.setOnDismissListener(new PopupWindow.OnDismissListener()

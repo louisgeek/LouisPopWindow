@@ -7,7 +7,7 @@
      android:id="@+id/id_gv"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:numColumns="4"
+     android:numColumns="3"
      android:horizontalSpacing="10dp"
      android:verticalSpacing="10dp"
      android:gravity="center"
